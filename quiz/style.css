@@ -1,0 +1,389 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'Xolonium';
+    src: url('newtechfont.otf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Amaranth';
+    src: url('Amaranth-Regular.ttf') format('truetype');
+}
+
+body {
+    min-height: 100vh;
+    background: transparent;
+}
+.transmission-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 960px;
+    height: 540px;
+    background-color: black; /* Optional: a background color for better visibility */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's above other elements */
+  }
+  
+  .transmission-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+span {
+    pointer-events: none;
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
+    animation: fadeInOut 1s linear infinite;
+}
+
+.dogtext span {
+    opacity: 0; /* Hidden by default */
+    display: inline-block;
+}
+
+.dogtext span.revealed {
+    opacity: 1; /* Visible when revealed */
+    position: center;
+    margin-top: 45px;
+    margin-bottom: auto;
+}
+
+.dogtext span.green {
+    color: #e30066; /* Green color for specific text */
+}
+
+.dogtext span.red {
+    color: #ff0000; /* Red color for specific text */
+}
+
+
+.dogtext {
+    display: flex;
+    font-size: 20px;
+    z-index: 100;
+    font-family: 'Xolonium';
+    color: black;
+    word-spacing: 2.5px;
+    background: #fff;
+    padding: 10px 50px;
+    border-bottom: 7px solid #C4167D;
+    line-height: 20px;
+    position: relative;
+    top: 180px;
+    width: 80%; /* Adjust the width */
+    height: 110px; /* Adjust the height */
+    max-width: 760px; /* Set a maximum width */
+    justify-content: center;
+    align-items: center;
+}
+
+.next-button {
+    position: absolute;
+    bottom: 40px;
+    right: 60px;
+    padding: 10px 20px;
+    background-color: #C4167D;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Xolonium';
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.next-button:hover {
+    background-color: #c0167cce;
+}
+
+.options {
+    font-family: 'Xolonium';
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 960px;
+    height: 540px;
+    background-image: url('dog.png');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    display: none
+}
+
+.hiddenContainer {
+    width: 500px;
+    height: 140px;
+    margin: auto;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.box {
+    width: 50px;
+    height: 50px;
+    background: orange;
+    margin: 10px;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.question-text {
+    font-family: 'Xolonium';
+}
+
+.butterscotch {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+}
+
+.butterscotch img {
+    width: 250px;
+    height: auto;
+}
+
+.quiz-question {
+    display: block;
+    margin-bottom: 20px; /* Add space below the question */
+    font-size: 24px; /* Adjust font size as needed */
+    text-align: center; /* Center the question text */
+}
+
+.quiz-option {
+    display: block;
+    margin: 10px auto; /* Center the options and add space between them */
+    padding: 10px 20px; /* Add padding for better appearance */
+    font-size: 18px; /* Adjust font size as needed */
+    cursor: pointer; /* Change cursor to pointer */
+    background-color: #f0f0f0; /* Background color for options */
+    border: 1px solid #ccc; /* Border for options */
+    border-radius: 5px; /* Rounded corners */
+    text-align: center; /* Center the option text */
+}
+
+.quiz-option:hover {
+    background-color: #e0e0e0; /* Change background color on hover */
+}
+
+/* Quiz Container Replacement */
+.game-quiz-container {
+    top: 180px;
+    width: 870px;
+    height: 150px;
+    background-image: url(backgroundimage.png);
+    background-size: 870px 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    margin: auto 45px auto 45px;
+}
+
+/* Options Styling */
+.game-options-container {
+    height: 75px;
+    column-gap: 110px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 7px;
+    width: 84%;
+    margin-left: 30px;
+    margin-right: auto;
+    margin-top: 5px;
+}
+
+.game-options-container label {
+    display: flex; /* Align icon and text in a row */
+    align-items: center; /* Vertically center align */
+    padding-left: 40px; /* Add padding for better appearance */
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    color: #1e1e1e;
+    font-size: 15px; /* Adjust font size */
+    border-radius: 5px; /* Rounded corners */
+    font-family: 'Amaranth';
+}
+
+.game-options-container label i {
+    margin-right: 10px; /* Space between icon and text */
+    font-size: 24px; /* Size of the icon */
+}
+
+#option-one-label {
+    background-image: url(button1.png);
+    background-size: 310px 34px;
+}
+
+#option-one-label:hover {
+    opacity: 0.7;
+}
+
+#option-two-label {
+    background-image: url(button2.png);
+    background-size: 311px 34px;
+}
+
+#option-two-label:hover {
+    opacity: 0.7;
+}
+
+#option-three-label {
+    background-image: url(button3.png);
+    background-size: 310px 34px;
+}
+
+#option-three-label:hover {
+    opacity: 0.7;
+}
+
+#option-four-label {
+    background-image: url(button4.png);
+    background-size: 311px 34px;
+}
+
+#option-four-label:hover {
+    opacity: 0.7;
+}
+
+/* Button-like Options */
+input[type="radio"] {
+    display: none; /* Hide radio buttons */
+}
+
+.quiz-info {
+    position: absolute;
+    border-radius: 17px;
+    padding: 20px;
+    top: 20px;  /* Adjust the top position to fit your design */
+    left: 45px;  /* Adjust the left position */
+    z-index: 10;  /* Make sure it stays above other elements */
+    background-color: #C4167D;  /* Set the color to match the design */
+}
+
+#display-question {
+margin: 30px 0 0 0;
+font-size: 20px;
+color: #1e1e1e;
+font-family: 'Amaranth';
+}
+
+h1 {
+    font-family: 'Xolonium';
+    font-size: 20px;
+    color: #efefef;
+}
+
+.rose-icon {
+width: 30px; 
+height: 30px; 
+vertical-align: middle; 
+margin-left: 3px
+}
+
+.hide-all {
+    display: none;
+}
+
+.show-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 960px;
+    height: 540px;
+    z-index: 1000;
+}
+
+.show-image img {
+    max-width: 960px;
+    max-height: 540px;
+}
+
+.rose-container{
+    display: none;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 58%;
+    left: 58%;
+    z-index: 1000;
+    transform: translate(-50%, -50%);
+    animation: none
+}
+.rose-win{
+    width: 150px;
+    height: 150px;
+    right: 40%;
+    object-fit: cover;
+    animation: float 3s ease-out infinite;
+    z-index: 1;
+}
+
+#shadow{
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 2%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(248, 61, 177, 0.734);
+    border-radius: 100%;
+    filter: blur(13px);
+    animation: shrink 3s ease-out infinite;
+    z-index: 0;
+}
+
+@keyframes float {
+    0%{
+        transform: translate(-50%,-50%) translateY(-4px);
+    }
+    50% {
+        transform: translate(-50%,-50%) translateY(16px);
+    }
+    100%{
+        transform: translate(-50%,-50%) translateY(-4px);
+    }
+    }
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1%;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+.raincloud-container {
+    display: none; /* Hide by default */
+    position: absolute;
+    top: 12%;
+    left: 50.5%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Ensure it appears above other elements */
+  }

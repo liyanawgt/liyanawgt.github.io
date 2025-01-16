@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story Slideshow - Chelsea & Butterscotch</title>
+  <!-- EXTERNAL CSS -->
+  <link rel="stylesheet" href="indexstyle.css">
+  <!--INTERNAL CSS-->
+
+</head>
+<body>
+  <script>
+    let lastHeartTime = 0;
+    const heartInterval = 170;
+    document.addEventListener('mousemove', function(e){
+      const currentTime = Date.now()
+      if(currentTime-lastHeartTime < heartInterval){
+        return;
+      }
+      lastHeartTime = currentTime;
+
+      let body = document.querySelector('body');
+      let heart = document.createElement('span');
+      let x = e.offsetX;
+      let y = e.offsetY;
+      heart.style.left = x+'px';
+      heart.style.top = y+'px';
+      
+      let size = Math.random() * 40;
+      heart.style.width = 10 + size + 'px';
+      heart.style.height = 10 + size + 'px';
+
+      let transformValue = Math.random() * 360;
+      heart.style.transform = 'rotate('+transformValue
+      +'deg)';
+
+      body.appendChild(heart);
+
+      setTimeout(function(){
+        heart.remove();
+      },1000)
+
+      
+    })
+      
+  </script>
+
+
+<!-- Start Screen Container -->
+<div class="start-screen">
+  <img class="title-image" src="opening_title.svg" alt="Opening Title">
+  <button class="start-button">Start</button>
+</div>
+
+
+  <!-- Slideshow Container -->
+  <div class="slideshow-container">
+<!-- Slide 1 - Text on Right (Default) -->
+<div class="slide active">
+    <img src="datingpage1.png" alt="Chelsea Meets Butterscotch">
+    <div class="text-container">
+      <h1>Butterscotch, <br> the Gen AI professional dog!</h1>
+      <p>
+        While on a dog dating app, you stumble across the profile of this friendly-looking dog named Butterscotch!
+         He loves talking about Generative AI. You decide to swipe right on him!
+      </p>
+    </div>
+  </div>
+  
+  <!-- Slide 2 - Text on Left -->
+  <div class="slide text-left">
+    <img src="datingpage2.png" alt="Dinner Date Scene">
+    <div class="text-container">
+      <h1>It's A Match!</h1>
+      <p>
+        Oh yay! Butterscotch swiped right on you too. You decide to send a message to him!
+      </p>
+    </div>
+  </div>
+  
+  <!-- Slide 3 - Text on Right -->
+  <div class="slide">
+    <img src="datingpage3.png" alt="Chelsea Thinking">
+    <div class="text-container">
+      <h1>So you decided to lie...</h1>
+      <p>
+        You got too excited to meet Butterscotch, and lied to him that you know a lot about Gen AI!
+        Now he's inviting you to dinner to talk more. What're you gonna do?
+      </p>
+    </div>
+  </div>
+  
+  <!-- Slide 4 - Text on Left -->
+  <div class="slide text-left">
+    <img src="datingpage4.png" alt="Chelsea's Answer">
+    <div class="text-container">
+      <h1>It's Quiz Time!</h1>
+      <p>
+        You tried reading up more on Gen AI to prepare for your 'date'. 
+        It's time to meet Butterscotch! Are you ready?
+      </p>
+    </div>
+  </div>
+
+   <!-- Navigation Button -->
+   <button class="nav-button">Next</button>
+
+   <script>
+
+    // Start Screen Logic
+    const startButton = document.querySelector('.start-button');
+    const startScreen = document.querySelector('.start-screen');
+    const slideshowContainer = document.querySelector('.slideshow-container');
+
+    startButton.addEventListener('click', () => {
+      startScreen.style.display = 'none'; // Hide the start screen
+      slideshowContainer.style.display = 'flex'; // Show the slideshow container
+    });
+
+     // JavaScript for Slideshow Navigation
+     const slides = document.querySelectorAll('.slide');
+     const navButton = document.querySelector('.nav-button');
+     let currentSlide = 0;
+ 
+     navButton.addEventListener('click', () => {
+       // Hide current slide
+       slides[currentSlide].classList.remove('active');
+ 
+       // Move to the next slide
+       currentSlide++;
+ 
+       if (currentSlide < slides.length - 1) {
+         // Show the next slide
+         slides[currentSlide].classList.add('active');
+       } else if (currentSlide === slides.length - 1) {
+         // On the last slide, change the button to 'Start Game'
+         slides[currentSlide].classList.add('active');
+         navButton.textContent = 'Start Game';
+         navButton.style.backgroundColor = '#801F83'; // Change button color for 'Start Game'
+         navButton.addEventListener('click', () => {
+            window.location.href = '../book/index.html';
+         });
+       }
+     });
+   </script>
+ </body>
+</html>

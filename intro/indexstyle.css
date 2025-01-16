@@ -1,0 +1,222 @@
+@font-face {
+    font-family: my3rdFont;
+    src: url(newtechfont.otf);
+}
+    /* General Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+  
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden; /* Disable scrolling to focus on slideshow behavior */
+        background-color: #f4f4f4;
+      }
+/* Start Screen Container */
+.start-screen {
+  position: relative; /* Required for absolute positioning of the button */
+  width: 960px;
+  height: 540px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background-size: cover;
+  background-position: center;
+}
+
+/* SVG Image Styling */
+.title-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Maintain aspect ratio */
+  position: absolute; /* Make it a background layer */
+  z-index: 1; /* Set the image below the button */
+}
+
+/* Button Styling */
+.start-button {
+  position: absolute;
+  z-index: 2; /* Ensure it's above the SVG */
+  top: 60%; /* Adjust vertical position */
+  left: 52%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Perfect centering */
+  width: 250px; /* Adjust the size of the button image */
+  height: 250px; /* Maintain aspect ratio */
+  cursor: pointer; /* Make it look clickable */
+  border: none; /* Remove the default border */
+  padding: 0; /* Remove padding */
+  background: none; /* Ensure no background is applied */
+  outline: none; /* Remove any focus outline */
+  box-shadow: none; /* Remove any box shadow */
+  font-size: 35px;
+  color: #f4f4f4;
+  font-family: 'my3rdFont';
+  transition: transform 0.3s ease, filter 0.3s ease; /* Add smooth transition for scale and filter */
+}
+
+.start-button:hover {
+    filter: brightness(0.8);
+}
+
+      /* Slideshow Container */
+      .slideshow-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 960px;
+        height: 540px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        /* Add Background Image */
+    background-image: url('pawbg.jpg'); 
+    background-size: cover; /* Ensures the image covers the container fully */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Avoids repeating the image */
+  
+      }
+  
+      /* Each Slide */
+      .slide {
+        position: absolute;
+        top: 0;
+        left: 100%; /* Start each slide off-screen */
+        width: 960px;
+        height: 540px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: hsl(0, 0%, 0%);
+        color: white;
+        transition: left 0.5s ease-in-out;
+      }
+  
+      .slide.active {
+        left: 0; /* Show the active slide */
+      }
+  
+      .slide img {
+    width: 100%; /* Matches the width of the container */
+    height: 100%; /* Matches the height of the container */
+    object-fit: cover; /* Ensures the image fills the container without distortion */
+    object-position: center; /* Keeps the important part of the image centered */
+      }
+  
+   /* Text Container - Default (Right) */
+  .text-container {
+    position: absolute;
+    right: 5%; /* Default: place text on the right */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+    width: 40%;
+    padding: 20px;
+    background: #F7D9E2; /* Semi-transparent background for readability */
+    color: #801F83;
+    z-index: 2; /* Layer above the image */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Text Container - Left Alignment */
+  .text-left .text-container {
+    right: auto; /* Remove right positioning */
+    left: 5%; /* Place text on the left */
+  }
+  
+  .text-container h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    line-height: 35px;
+    font-family: my3rdFont;
+    }
+  
+  
+  .text-container p {
+    font-size: 20px;
+    line-height: 25px;  
+    font-family: my3rdFont;
+    }
+
+    .nav-button{
+        font-family: my3rdFont;
+        font-kerning: auto;
+        font-weight: 100;
+    }
+  
+  
+  
+   /* General Button Styles */
+  .nav-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    font-size: 20px;
+    color: #fdfdfde9;
+    background-color: #C4167D; /* Default Next button color */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-button:hover {
+    background-color: #4d1a3b;
+  }
+  
+  /* Start Game Button Style */
+  .nav-button.start-game {
+    background-color: #E91DA2; /* Unique color for 'Start Game' button */
+  }
+  
+  .nav-button.start-game:hover {
+    background-color: #9a176c; /* Slightly darker hover effect */
+  }
+
+  span
+  {
+      z-index: 100;
+      position: absolute;
+      pointer-events: none;
+      filter: drop-shadow(0 0 15px rgba(0,0,0, 0.5));
+      animation: fadeInOut 1s linear infinite;
+  }
+  @keyframes fadeInOut
+  {
+      0%, 100%
+      {
+          opacity: 0;
+      }
+      20%, 80%
+      {
+          opacity: 1;
+      }
+  }
+
+span::before
+{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url(heart.png);
+    background-size:cover;
+    animation: moveShape 1s linear infinite;
+
+}
+@keyframes moveShape
+{
+    0%
+    {
+        transform: translate(0) rotate(0deg);
+    }
+    100%
+    {
+        transform: translate(300px) rotate(360deg);
+    }
+}

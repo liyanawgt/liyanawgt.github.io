@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Butterscotch Quiz</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjss.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <div id="transmission" class="transmission-overlay">
+    <img src="transmission.png" alt="Transmission Image" class="transmission-image">
+  </div>
+  <div class="container">
+    <div class="quiz-info" style="display: none;">
+      <h1>Score : <span id="player-score">0</span> / 5 
+      <img src="rose.png" alt="Rose" class="rose-icon">
+    </h1>
+      <h1>Question : <span id="question-number">0</span> / 5</h1>
+    </div>  
+    <div class="butterscotch">
+      <div class="dogtext"></div>
+      <div id="quiz-container" class="game-quiz-container" style="display: none;">
+        <div class="game-details-container">
+        </div>
+        <div class="game-question-container">
+          <h2 id="display-question"></h2>
+        </div>
+        <div class="game-options-container">
+          <input type="radio" id="option-one" name="option" value="optionA">
+          <label for="option-one" id="option-one-label">
+            <i class="fa-solid fa-paw"></i> Option A
+          </label>
+          
+          <input type="radio" id="option-two" name="option" value="optionB">
+          <label for="option-two" id="option-two-label">
+            <i class="fa-solid fa-paw"></i> Option B
+          </label>
+          
+          <input type="radio" id="option-three" name="option" value="optionC">
+          <label for="option-three" id="option-three-label">
+            <i class="fa-solid fa-paw"></i> Option C
+          </label>
+          
+          <input type="radio" id="option-four" name="option" value="optionD">
+          <label for="option-four" id="option-four-label">
+            <i class="fa-solid fa-paw"></i> Option D
+          </label>
+        </div>
+      </div>
+    </div>
+    <div id="score-modal" class="modal-container" style="display: none;">
+      <div class="modal-content-container">
+        <h2>Congratulations, Quiz Completed.</h2>
+        <p>Right Answers: <span id="right-answers"></span></p>
+        <p>Wrong Answers: <span id="wrong-answers"></span></p>
+        <p>Grade: <span id="grade-percentage"></span>%</p>
+        <button onclick="closeScoreModal()">Retry</button>
+      </div>
+    </div>
+    <button id="nextButton" class="next-button">Next</button>
+    <button id="startQuizButton" style="display: none;">Start Quiz</button>
+  </div>
+  <div class="rose-container">
+    <span id="shadow"></span>
+    <img src="rose.png" alt="rosewin" class="rose-win">
+  </div>
+  <div class="raincloud-container">
+    <iframe src="https://giphy.com/embed/PfnETQVBFMhZYFhOq9"
+    alt="rainlose" class='rain-lose'
+    style="border: none;" frameBorder="0" 
+    class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/transparent-PfnETQVBFMhZYFhOq9"></a></p>
+  </div>
+  <script src="java.js"></script>
+</body>
+</html>
