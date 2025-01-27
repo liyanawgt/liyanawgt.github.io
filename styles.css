@@ -1,0 +1,74 @@
+@font-face {
+  font-family: 'PixelFont'; /* The name of your custom font */
+  src: url('./fonts/Pixel Game.ttf') format('truetype'); /* Correct format */
+}
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  font-family: 'PixelFont';
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgb(108, 24, 24);
+  font-family: Arial, sans-serif;
+}
+
+#game-container {
+  border: 3px solid white;
+  position: relative;
+}
+
+canvas {
+  display: block;
+}
+
+#title-card {
+  margin-top: 20px; /* Space above the title */
+  margin-bottom: 10px; /* Space below the title */
+  color: rgb(255, 98, 0);
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#instructions {
+  margin-top: 10px; /* Space above the instructions */
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  width: 80%;
+  max-width: 600px; /* Adjust width for readability */
+}
+
+#game-container {
+  border: 3px solid white;
+  position: relative;
+}
+
+canvas {
+  display: block;
+}
+#controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.control-btn {
+  background-color: rgb(235, 235, 235);
+  border: 2px solid rgb(235, 235, 235);
+  color: rgb(108, 24, 24);
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.control-btn:active {
+  background-color: orange;
+}
