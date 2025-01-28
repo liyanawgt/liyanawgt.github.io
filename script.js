@@ -14,14 +14,14 @@ const pacMan = {
   startY: 100,
 };
 
-// Define maze walls (x, y, width, height)
+// Define maze walls (original positions)
 const walls = [
-  { x: 50, y: 50, width: 500, height: 10 },
-  { x: 50, y: 340, width: 500, height: 10 },
-  { x: 50, y: 50, width: 10, height: 300 },
-  { x: 540, y: 50, width: 10, height: 300 },
-  { x: 150, y: 150, width: 100, height: 10 },
-  { x: 300, y: 200, width: 10, height: 100 },
+  { originalX: 50, originalY: 50, originalWidth: 500, originalHeight: 10 },
+  { originalX: 50, originalY: 340, originalWidth: 500, originalHeight: 10 },
+  { originalX: 50, originalY: 50, originalWidth: 10, originalHeight: 300 },
+  { originalX: 540, originalY: 50, originalWidth: 10, originalHeight: 300 },
+  { originalX: 150, originalY: 150, originalWidth: 100, originalHeight: 10 },
+  { originalX: 300, originalY: 200, originalWidth: 10, originalHeight: 100 },
 ];
 
 // Pebbles array
@@ -32,6 +32,44 @@ const pebbles = [
   { x: 400, y: 200 },
   { x: 500, y: 300 },
 ];
+
+// Ghosts array
+const ghostsImage = new Image();
+ghostsImage.src = "fireimage.png"; // Replace with your ghost image path
+const ghosts = [
+  { x: 200, y: 200, size: 20, dx: 2, dy: 0, startX: 200, startY: 200, range: 50 }, // Horizontal movement
+  { x: 400, y: 100, size: 20, dx: 0, dy: 2, startX: 400, startY: 100, range: 50 }, // Vertical movement
+];
+
+// Load the pebble image
+const pebbleImage = new Image();
+pebbleImage.src = "mcspicyimage.png"; // Replace with your pebble image path
+
+// Resize the canvas and elements dynamically
+function resizeCanvas() {
+  const width = window.innerWidth * 0.9; // Use 90% of screen width
+  const height = (width * 2) / 3; // Maintain 3:2 aspect ratio
+  canvas.width = width;
+  canvas.height = height;
+
+  // Recalculate element sizes and positions
+  pacMan.size = Math.min(width, height) / 30; // Scale Pac-Man size
+  walls.forEach((wall) => {
+    wall.x = wall.originalX * (canvas.width / 600);
+    wall.y = wall.originalY * (canvas.height / 400);
+    wall.width = wall.originalWidth * (canvas.width / 600);
+    wall.height = wall.originalHeight * (canvas.height / 400);
+  });
+  ghosts.forEach((ghost) => {
+    ghost.size = pacMan.size; // Scale ghosts to match Pac-Man
+    ghost.x = ghost.startX * (canvas.width / 600);
+    ghost.y = ghost.startY * (canvas.height / 400);
+  });
+  pebbles.forEach((pebble) => {
+    pebble.scaledX = pebble.x * (canvas.width / 600);
+    pebble.scaledY = pebble.y * (canvas.height / 400);
+  });
+}
 
 // Add touch controls
 document.getElementById("up").addEventListener("click", () => {
@@ -53,24 +91,12 @@ document.getElementById("right").addEventListener("click", () => {
 
 // Reset movement when the button is released
 const controlButtons = document.querySelectorAll(".control-btn");
-controlButtons.forEach(button => {
+controlButtons.forEach((button) => {
   button.addEventListener("mouseup", () => {
     pacMan.dx = 0;
     pacMan.dy = 0;
   });
 });
-
-// Load the pebble image
-const pebbleImage = new Image();
-pebbleImage.src = "mcspicyimage.png"; // Replace with your pebble image path
-
-// Ghosts array
-const ghostsImage = new Image();
-ghostsImage.src="fireimage.png";
-const ghosts = [
-  { x: 200, y: 200, size: 20, dx: 2, dy: 0, startX: 200, startY: 200, range: 50 }, // Horizontal movement
-  { x: 400, y: 100, size: 20,  dx: 0, dy: 2, startX: 400, startY: 100, range: 50 }, // Vertical movement
-];
 
 // Function to draw Pac-Man
 function drawPacMan() {
@@ -93,20 +119,25 @@ function drawWalls() {
 // Function to draw pebbles
 function drawPebbles() {
   pebbles.forEach((pebble) => {
-    ctx.drawImage(pebbleImage, pebble.x - 27, pebble.y - 27, 54, 54); // Adjust size here
+    ctx.drawImage(
+      pebbleImage,
+      pebble.scaledX - pacMan.size / 2,
+      pebble.scaledY - pacMan.size / 2,
+      pacMan.size,
+      pacMan.size
+    );
   });
 }
 
 // Function to draw ghosts
-// Function to draw ghosts using an image
 function drawGhosts() {
   ghosts.forEach((ghost) => {
     ctx.drawImage(
       ghostsImage,
-      ghost.x - ghost.size, // Adjusting for size
+      ghost.x - ghost.size,
       ghost.y - ghost.size,
-      ghost.size * 2, // Width
-      ghost.size * 2  // Height
+      ghost.size * 2,
+      ghost.size * 2
     );
   });
 }
@@ -147,7 +178,7 @@ function checkWallCollision(newX, newY) {
 function checkPebbleCollision() {
   pebbles.forEach((pebble, index) => {
     const dist = Math.sqrt(
-      (pacMan.x - pebble.x) ** 2 + (pacMan.y - pebble.y) ** 2
+      (pacMan.x - pebble.scaledX) ** 2 + (pacMan.y - pebble.scaledY) ** 2
     );
     if (dist < pacMan.size) {
       // Remove pebble from array
@@ -156,7 +187,7 @@ function checkPebbleCollision() {
   });
 }
 
-// Check for collision between Pac-Man and ghosts
+// Check for collision with ghosts
 function checkGhostCollision() {
   ghosts.forEach((ghost) => {
     const dist = Math.sqrt(
@@ -192,8 +223,20 @@ function updatePacMan() {
   checkGhostCollision();
 }
 
-// Keydown event to move Pac-Man
-function movePacMan(e) {
+// Game loop
+function gameLoop() {
+  clearCanvas();
+  drawWalls();
+  drawPebbles();
+  drawPacMan();
+  drawGhosts();
+  updatePacMan();
+  updateGhosts();
+  requestAnimationFrame(gameLoop);
+}
+
+// Event listeners for Pac-Man movement
+document.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "ArrowRight":
       pacMan.dx = pacMan.speed;
@@ -212,31 +255,15 @@ function movePacMan(e) {
       pacMan.dy = pacMan.speed;
       break;
   }
-}
-
-// Keyup event to stop Pac-Man
-function stopPacMan(e) {
+});
+document.addEventListener("keyup", (e) => {
   if (["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"].includes(e.key)) {
     pacMan.dx = 0;
     pacMan.dy = 0;
   }
-}
-
-// Game loop
-function gameLoop() {
-  clearCanvas();
-  drawWalls(); // Draw walls
-  drawPebbles(); // Draw pebbles
-  drawPacMan(); // Draw Pac-Man
-  drawGhosts(); // Draw ghosts
-  updatePacMan(); // Update Pac-Man's position
-  updateGhosts(); // Update ghost positions
-  requestAnimationFrame(gameLoop);
-}
-
-// Event listeners for Pac-Man movement
-document.addEventListener("keydown", movePacMan);
-document.addEventListener("keyup", stopPacMan);
+});
 
 // Start the game
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
 gameLoop();
